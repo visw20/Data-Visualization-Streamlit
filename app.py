@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 
@@ -20,3 +19,6 @@ def upload_file():
 
 def main():
     upload_file()
+
+if __name__ == "__main__":
+    main()
