@@ -12,7 +12,7 @@ def upload_and_visualize():
         st.write("Uploaded file:", uploaded_file.name)
         
         # Load the CSV file into a DataFrame
-        df = pd.read_csv("C:\Users\Viswajith\Downloads\BankNote_Authentication.csv")
+        df = pd.read_csv(r"C:\Users\Viswajith\Downloads\BankNote_Authentication.csv")
         
         # Display the DataFrame
         st.write("Data Preview:")
