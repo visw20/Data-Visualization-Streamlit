@@ -1,5 +1,5 @@
 import streamlit as st
-import fitz
+
 
 def upload_file():
     st.title("File Uploader")
