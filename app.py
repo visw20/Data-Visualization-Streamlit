@@ -1,40 +1,24 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 
-def upload_and_visualize():
-    st.title("CSV File Uploader and Visualizer")
-    
+def upload_file():
+    st.title("CSV File Uploader")
+
     # File uploader widget
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-    
+
+    # Check if a file is uploaded
     if uploaded_file is not None:
         st.write("Uploaded file:", uploaded_file.name)
-        
-        # Load the CSV file into a DataFrame
-        df = pd.read_csv(r"C:\Users\Viswajith\Downloads\BankNote_Authentication.csv")
-        
-        # Display the DataFrame
-        st.write("Data Preview:")
-        st.write(df.head())
-        
-        # Data visualization using Matplotlib
-        st.subheader("Data Visualization")
-        x_column = st.selectbox("Select X-axis column", df.columns)
-        y_column = st.selectbox("Select Y-axis column", df.columns)
-        
-        if st.button("Generate Scatter Plot"):
-            fig, ax = plt.subplots()
-            ax.scatter(df[x_column], df[y_column])
-            ax.set_xlabel(x_column)
-            ax.set_ylabel(y_column)
-            ax.set_title(f"{y_column} vs {x_column}")
-            st.pyplot(fig)
+
+        # Display CSV file content using pandas
+        df = pd.read_csv(uploaded_file)
+        st.dataframe(df)
     else:
         st.write("Please upload a CSV file.")
 
 def main():
-    upload_and_visualize()
+    upload_file()
 
 if __name__ == "__main__":
     main()
