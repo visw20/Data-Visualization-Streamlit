@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+import PyPDF2
 
 def upload_file():
     st.title("File Uploader")
@@ -17,13 +19,20 @@ def upload_file():
             st.text_area("File content", content, height=300)
         elif uploaded_file.type == "application/pdf":
             # Display PDF file content
-            import PyPDF2
             pdf_reader = PyPDF2.PdfFileReader(uploaded_file)
             num_pages = pdf_reader.numPages
             pdf_text = ""
             for page in range(num_pages):
                 pdf_text += pdf_reader.getPage(page).extract_text()
             st.text_area("PDF content", pdf_text, height=300)
+        elif uploaded_file.type == "text/csv":
+            # Display CSV file content using pandas
+            df = pd.read_csv(uploaded_file)
+            st.dataframe(df)
+        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+            # Display Excel file content using pandas
+            df = pd.read_excel(uploaded_file)
+            st.dataframe(df)
         else:
             st.write("File type not supported.")
     else:
