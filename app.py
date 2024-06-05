@@ -1,25 +1,22 @@
+
+import streamlit as st
 import pandas as pd
-import numpy as np
-df=pd.read_csv('BankNote_Authentication.csv')
 
-### Independent and Dependent features
-X=df.iloc[:,:-1]
-y=df.iloc[:,-1]
+def upload_file():
+    st.title("CSV File Uploader")
 
-### Train Test Split
-from sklearn.model_selection import train_test_split
-X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=0)
-### Implement Random Forest classifier
-from sklearn.ensemble import RandomForestClassifier
-classifier=RandomForestClassifier()
-classifier.fit(X_train,y_train)
+    # File uploader widget
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
+    # Check if a file is uploaded
+    if uploaded_file is not None:
+        st.write("Uploaded file:", uploaded_file.name)
 
-## Prediction
-y_pred=classifier.predict(X_test)
-### Check Accuracy
-from sklearn.metrics import accuracy_score
-score=accuracy_score(y_test,y_pred)
+        # Display CSV file content using pandas
+        df = pd.read_csv(uploaded_file)
+        st.dataframe(df)
+    else:
+        st.write("Please upload a CSV file.")
 
-
-
+def main():
+    upload_file()
