@@ -1,5 +1,5 @@
 import streamlit as st
-import fitz  # PyMuPDF
+import fitz
 
 def upload_file():
     st.title("File Uploader")
@@ -17,12 +17,13 @@ def upload_file():
             content = uploaded_file.read().decode("utf-8")
             st.text_area("File content", content, height=300)
         elif uploaded_file.type == "application/pdf":
-            # Display PDF file content using PyMuPDF
+            # Display PDF file content
+            import PyPDF2
+            pdf_reader = PyPDF2.PdfFileReader(uploaded_file)
+            num_pages = pdf_reader.numPages
             pdf_text = ""
-            with fitz.open(stream=uploaded_file.read(), filetype="pdf") as pdf_doc:
-                for page_num in range(len(pdf_doc)):
-                    page = pdf_doc[page_num]
-                    pdf_text += page.get_text()
+            for page in range(num_pages):
+                pdf_text += pdf_reader.getPage(page).extract_text()
             st.text_area("PDF content", pdf_text, height=300)
         else:
             st.write("File type not supported.")
@@ -34,4 +35,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
