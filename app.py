@@ -1,5 +1,4 @@
 import streamlit as st
-import pdfplumber
 
 def upload_file():
     st.title("File Uploader")
@@ -17,11 +16,13 @@ def upload_file():
             content = uploaded_file.read().decode("utf-8")
             st.text_area("File content", content, height=300)
         elif uploaded_file.type == "application/pdf":
-            # Display PDF file content using pdfplumber
+            # Display PDF file content
+            import PyPDF2
+            pdf_reader = PyPDF2.PdfFileReader(uploaded_file)
+            num_pages = pdf_reader.numPages
             pdf_text = ""
-            with pdfplumber.open(uploaded_file) as pdf:
-                for page in pdf.pages:
-                    pdf_text += page.extract_text()
+            for page in range(num_pages):
+                pdf_text += pdf_reader.getPage(page).extract_text()
             st.text_area("PDF content", pdf_text, height=300)
         else:
             st.write("File type not supported.")
