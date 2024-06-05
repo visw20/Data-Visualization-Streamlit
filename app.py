@@ -22,10 +22,10 @@ def upload_and_visualize():
         st.subheader("Data Visualization")
         if not df.empty:
             # Assuming the CSV file has at least two numeric columns
-            x_column = st.selectbox("Select X-axis column", df.select_dtypes(include=np.number).columns)
-            y_column = st.selectbox("Select Y-axis column", df.select_dtypes(include=np.number).columns)
-            color_column = st.selectbox("Select Color column", df.select_dtypes(include=np.number).columns)
-            size_column = st.selectbox("Select Size column", df.select_dtypes(include=np.number).columns)
+            x_column = st.selectbox("Select X-axis column for Scatter Plot", df.select_dtypes(include=np.number).columns)
+            y_column = st.selectbox("Select Y-axis column for Scatter Plot", df.select_dtypes(include=np.number).columns)
+            color_column = st.selectbox("Select Color column for Scatter Plot", df.select_dtypes(include=np.number).columns)
+            size_column = st.selectbox("Select Size column for Scatter Plot", df.select_dtypes(include=np.number).columns)
 
             scatter_chart = (
                 alt.Chart(df)
@@ -36,6 +36,21 @@ def upload_and_visualize():
 
             st.write("Scatter Plot:")
             st.altair_chart(scatter_chart, use_container_width=True)
+
+            # Bar chart visualization
+            st.subheader("Bar Chart Visualization")
+            x_column_bar = st.selectbox("Select X-axis column for Bar Chart", df.columns, key='bar_x')
+            y_column_bar = st.selectbox("Select Y-axis column for Bar Chart", df.select_dtypes(include=np.number).columns, key='bar_y')
+
+            bar_chart = (
+                alt.Chart(df)
+                .mark_bar()
+                .encode(x=x_column_bar, y=y_column_bar, tooltip=list(df.columns))
+                .interactive()
+            )
+
+            st.write("Bar Chart:")
+            st.altair_chart(bar_chart, use_container_width=True)
     else:
         st.write("Please upload a CSV file.")
 
