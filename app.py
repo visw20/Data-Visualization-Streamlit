@@ -30,7 +30,7 @@ def upload_and_visualize():
             scatter_chart = (
                 alt.Chart(df)
                 .mark_circle()
-                .encode(x=x_column, y=y_column, color=color_column, size=size_column, tooltip=list(df.columns))
+                .encode(x=x_column, y=y_column,tooltip=list(df.columns))
                 .interactive()
             )
 
