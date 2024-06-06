@@ -24,13 +24,13 @@ def upload_and_visualize():
             # Assuming the CSV file has at least two numeric columns
             x_column = st.selectbox("Select X-axis column for Scatter Plot", df.select_dtypes(include=np.number).columns)
             y_column = st.selectbox("Select Y-axis column for Scatter Plot", df.select_dtypes(include=np.number).columns)
-            #color_column = st.selectbox("Select Color column for Scatter Plot", df.select_dtypes(include=np.number).columns)
-            #size_column = st.selectbox("Select Size column for Scatter Plot", df.select_dtypes(include=np.number).columns)
+            color_column = st.selectbox("Select Color column for Scatter Plot", df.select_dtypes(include=np.number).columns)
+            size_column = st.selectbox("Select Size column for Scatter Plot", df.select_dtypes(include=np.number).columns)
 
             scatter_chart = (
                 alt.Chart(df)
                 .mark_circle()
-                .encode(x=x_column, y=y_column,tooltip=list(df.columns))
+                .encode(x=x_column, y=y_column,color=color_column, size=size_column,tooltip=list(df.columns))
                 .interactive()
             )
 
@@ -45,7 +45,7 @@ def upload_and_visualize():
             bar_chart = (
                 alt.Chart(df)
                 .mark_bar()
-                .encode(x=x_column_bar, y=y_column_bar, tooltip=list(df.columns))
+                .encode(x=x_column_bar, y=y_column_bar,tooltip=list(df.columns))
                 .interactive()
             )
 
