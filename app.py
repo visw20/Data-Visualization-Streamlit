@@ -24,8 +24,8 @@ def upload_and_visualize():
             # Assuming the CSV file has at least two numeric columns
             x_column = st.selectbox("Select X-axis column for Scatter Plot", df.select_dtypes(include=np.number).columns)
             y_column = st.selectbox("Select Y-axis column for Scatter Plot", df.select_dtypes(include=np.number).columns)
-            color_column = st.selectbox("Select Color column for Scatter Plot", df.select_dtypes(include=np.number).columns)
-            size_column = st.selectbox("Select Size column for Scatter Plot", df.select_dtypes(include=np.number).columns)
+            #color_column = st.selectbox("Select Color column for Scatter Plot", df.select_dtypes(include=np.number).columns)
+            #size_column = st.selectbox("Select Size column for Scatter Plot", df.select_dtypes(include=np.number).columns)
 
             scatter_chart = (
                 alt.Chart(df)
